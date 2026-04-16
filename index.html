@@ -5,70 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CEO Dashboard</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0d1117;
-            color: #c9d1d9;
+            background: #0a0a0f;
+            color: #e0e0e5;
             min-height: 100vh;
             padding: 2rem;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
         }
-        header {
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #30363d;
-        }
-        h1 {
-            font-size: 1.75rem;
-            font-weight: 600;
-            color: #f0f6fc;
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
         }
         .timestamp {
-            color: #8b949e;
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
+            color: #666;
+            font-size: 0.85rem;
         }
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
         }
         .card {
-            background: #161b22;
-            border: 1px solid #30363d;
+            background: #15151a;
             border-radius: 12px;
             padding: 1.5rem;
+            border: 1px solid #252530;
+            transition: border-color 0.2s;
+        }
+        .card:hover {
+            border-color: #667eea;
         }
         .card h2 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #f0f6fc;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #888;
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
-        .card h2 .icon {
-            font-size: 1.25rem;
+        .card h2::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
         }
+        .projects h2::before { background: #667eea; }
+        .agents h2::before { background: #10b981; }
+        .cron h2::before { background: #f59e0b; }
+        
         .item {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0.75rem 0;
-            border-bottom: 1px solid #21262d;
+            border-bottom: 1px solid #252530;
         }
-        .item:last-child {
-            border-bottom: none;
-        }
+        .item:last-child { border-bottom: none; }
         .item-name {
             font-weight: 500;
         }
@@ -77,138 +83,141 @@
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 600;
-            text-transform: uppercase;
         }
-        .badge-hoch { background: #da3633; color: #fff; }
-        .badge-mittel { background: #d29922; color: #000; }
-        .badge-niedrig { background: #8b949e; color: #000; }
-        .badge-aktiv { background: #238636; color: #fff; }
-        .badge-online { background: #238636; color: #fff; }
-        .badge-standby { background: #6e7681; color: #fff; }
-        .badge-enabled { background: #238636; color: #fff; }
+        .priority-HOCH { background: #ef4444; color: white; }
+        .priority-MITTEL { background: #f59e0b; color: #000; }
+        .priority-NIEDRIG { background: #10b981; color: white; }
+        .status {
+            color: #aaa;
+            font-size: 0.85rem;
+        }
+        .agent-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .agent-status::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .status-online::before { background: #10b981; box-shadow: 0 0 8px #10b981; }
+        .status-standby::before { background: #f59e0b; }
         .role {
-            color: #8b949e;
-            font-size: 0.875rem;
+            color: #666;
+            font-size: 0.8rem;
+        }
+        .cron-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #252530;
+        }
+        .cron-item:last-child { border-bottom: none; }
+        .enabled {
+            color: #10b981;
+            font-size: 0.8rem;
         }
         .schedule {
-            color: #8b949e;
-            font-size: 0.875rem;
-        }
-        footer {
-            margin-top: 3rem;
-            text-align: center;
-            color: #484f58;
-            font-size: 0.75rem;
+            color: #888;
+            font-size: 0.8rem;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>CEO Dashboard</h1>
-            <div class="timestamp">Generiert: 16.04.2026, 06:37 UTC</div>
-        </header>
+    <div class="header">
+        <h1>CEO Dashboard</h1>
+        <div class="timestamp">Aktualisiert: 16. April 2026, 07:20 UTC</div>
+    </div>
+    
+    <div class="grid">
+        <div class="card projects">
+            <h2>Projekte</h2>
+            <div class="item">
+                <span class="item-name">#acc - BELEGWERK</span>
+                <span class="badge priority-HOCH">HOCH</span>
+            </div>
+            <div class="status">Status: Sprint 5</div>
+            
+            <div class="item" style="margin-top: 1rem;">
+                <span class="item-name">#inf - AI Music Influencer</span>
+                <span class="badge priority-MITTEL">MITTEL</span>
+            </div>
+            <div class="status">Status: Konzeptphase</div>
+            
+            <div class="item" style="margin-top: 1rem;">
+                <span class="item-name">#scan - Scanning Automation</span>
+                <span class="badge priority-MITTEL">MITTEL</span>
+            </div>
+            <div class="status">Status: Konzeptphase</div>
+            
+            <div class="item" style="margin-top: 1rem;">
+                <span class="item-name">Dashboard</span>
+                <span class="badge priority-MITTEL">MITTEL</span>
+            </div>
+            <div class="status">Status: Aktiv</div>
+            
+            <div class="item" style="margin-top: 1rem;">
+                <span class="item-name">#gen - General</span>
+                <span class="badge priority-NIEDRIG">NIEDRIG</span>
+            </div>
+            <div class="status">Status: Aktiv</div>
+        </div>
         
-        <div class="grid">
-            <div class="card">
-                <h2><span class="icon">📁</span> Projekte</h2>
-                <div class="item">
-                    <div>
-                        <div class="item-name">#acc - BELEGWERK</div>
-                    </div>
-                    <div>
-                        <span class="badge badge-hoch">Hoch</span>
-                        <span class="badge badge-aktiv">Aktiv</span>
-                    </div>
-                </div>
-                <div class="item">
-                    <div>
-                        <div class="item-name">Dashboard</div>
-                    </div>
-                    <div>
-                        <span class="badge badge-mittel">Mittel</span>
-                        <span class="badge badge-aktiv">Aktiv</span>
-                    </div>
-                </div>
-                <div class="item">
-                    <div>
-                        <div class="item-name">#gen - General</div>
-                    </div>
-                    <div>
-                        <span class="badge badge-mittel">Mittel</span>
-                        <span class="badge badge-aktiv">Aktiv</span>
-                    </div>
-                </div>
+        <div class="card agents">
+            <h2>Agenten</h2>
+            <div class="item">
+                <span class="item-name">Alfons</span>
+                <span class="agent-status status-online">Online</span>
             </div>
-
-            <div class="card">
-                <h2><span class="icon">🤖</span> Agents</h2>
-                <div class="item">
-                    <div>
-                        <div class="item-name">Alfons</div>
-                        <div class="role">Orchestrator</div>
-                    </div>
-                    <span class="badge badge-online">Online</span>
-                </div>
-                <div class="item">
-                    <div>
-                        <div class="item-name">Kobold</div>
-                        <div class="role">Wissensverwalter</div>
-                    </div>
-                    <span class="badge badge-standby">Standby</span>
-                </div>
-                <div class="item">
-                    <div>
-                        <div class="item-name">Maloney</div>
-                        <div class="role">TBD</div>
-                    </div>
-                    <span class="badge badge-standby">Standby</span>
-                </div>
+            <div class="role">Rolle: Orchestrator</div>
+            
+            <div class="item" style="margin-top: 1rem;">
+                <span class="item-name">Kobold</span>
+                <span class="agent-status status-standby">Standby</span>
             </div>
-
-            <div class="card">
-                <h2><span class="icon">⏰</span> Cron Jobs</h2>
-                <div class="item">
-                    <div>
-                        <div class="item-name">heartbeat-60min</div>
-                        <div class="schedule">Jede Stunde</div>
-                    </div>
-                    <span class="badge badge-enabled">✓</span>
+            <div class="role">Rolle: Wissensverwalter</div>
+            
+            <div class="item" style="margin-top: 1rem;">
+                <span class="item-name">Maloney</span>
+                <span class="agent-status status-standby">Standby</span>
+            </div>
+            <div class="role">Rolle: TBD</div>
+        </div>
+        
+        <div class="card cron">
+            <h2>Cron Jobs</h2>
+            <div class="cron-item">
+                <div>
+                    <div class="item-name">heartbeat-60min</div>
+                    <div class="schedule">Jede Stunde</div>
                 </div>
-                <div class="item">
-                    <div>
-                        <div class="item-name">daily-dashboard-0700</div>
-                        <div class="schedule">07:00 täglich</div>
-                    </div>
-                    <span class="badge badge-enabled">✓</span>
+                <span class="enabled">● Aktiv</span>
+            </div>
+            <div class="cron-item">
+                <div>
+                    <div class="item-name">maloney-tagescheck</div>
+                    <div class="schedule">07:00 täglich</div>
                 </div>
-                <div class="item">
-                    <div>
-                        <div class="item-name">maloney-tagescheck</div>
-                        <div class="schedule">07:00 täglich</div>
-                    </div>
-                    <span class="badge badge-enabled">✓</span>
+                <span class="enabled">● Aktiv</span>
+            </div>
+            <div class="cron-item">
+                <div>
+                    <div class="item-name">kobold-tageslauf</div>
+                    <div class="schedule">03:00 täglich</div>
                 </div>
-                <div class="item">
-                    <div>
-                        <div class="item-name">kobold-tageslauf</div>
-                        <div class="schedule">03:00 täglich</div>
-                    </div>
-                    <span class="badge badge-enabled">✓</span>
+                <span class="enabled">● Aktiv</span>
+            </div>
+            <div class="cron-item">
+                <div>
+                    <div class="item-name">dashboard-0600</div>
+                    <div class="schedule">06:00 täglich</div>
                 </div>
-                <div class="item">
-                    <div>
-                        <div class="item-name">dashboard-daily-update</div>
-                        <div class="schedule">06:00 täglich</div>
-                    </div>
-                    <span class="badge badge-enabled">✓</span>
-                </div>
+                <span class="enabled">● Aktiv</span>
             </div>
         </div>
-
-        <footer>
-            OpenClaw CEO Dashboard — Automatisch generiert
-        </footer>
     </div>
 </body>
 </html>
