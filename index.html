@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEO Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0d1117;
+            color: #c9d1d9;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #30363d;
+        }
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #f0f6fc;
+        }
+        .timestamp {
+            color: #8b949e;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        .card h2 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #f0f6fc;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .card h2 .icon {
+            font-size: 1.25rem;
+        }
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #21262d;
+        }
+        .item:last-child {
+            border-bottom: none;
+        }
+        .item-name {
+            font-weight: 500;
+        }
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .badge-hoch { background: #da3633; color: #fff; }
+        .badge-mittel { background: #d29922; color: #000; }
+        .badge-niedrig { background: #8b949e; color: #000; }
+        .badge-aktiv { background: #238636; color: #fff; }
+        .badge-online { background: #238636; color: #fff; }
+        .badge-standby { background: #6e7681; color: #fff; }
+        .badge-enabled { background: #238636; color: #fff; }
+        .role {
+            color: #8b949e;
+            font-size: 0.875rem;
+        }
+        .schedule {
+            color: #8b949e;
+            font-size: 0.875rem;
+        }
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            color: #484f58;
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CEO Dashboard</h1>
+            <div class="timestamp">Generiert: 16.04.2026, 06:37 UTC</div>
+        </header>
+        
+        <div class="grid">
+            <div class="card">
+                <h2><span class="icon">📁</span> Projekte</h2>
+                <div class="item">
+                    <div>
+                        <div class="item-name">#acc - BELEGWERK</div>
+                    </div>
+                    <div>
+                        <span class="badge badge-hoch">Hoch</span>
+                        <span class="badge badge-aktiv">Aktiv</span>
+                    </div>
+                </div>
+                <div class="item">
+                    <div>
+                        <div class="item-name">Dashboard</div>
+                    </div>
+                    <div>
+                        <span class="badge badge-mittel">Mittel</span>
+                        <span class="badge badge-aktiv">Aktiv</span>
+                    </div>
+                </div>
+                <div class="item">
+                    <div>
+                        <div class="item-name">#gen - General</div>
+                    </div>
+                    <div>
+                        <span class="badge badge-mittel">Mittel</span>
+                        <span class="badge badge-aktiv">Aktiv</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><span class="icon">🤖</span> Agents</h2>
+                <div class="item">
+                    <div>
+                        <div class="item-name">Alfons</div>
+                        <div class="role">Orchestrator</div>
+                    </div>
+                    <span class="badge badge-online">Online</span>
+                </div>
+                <div class="item">
+                    <div>
+                        <div class="item-name">Kobold</div>
+                        <div class="role">Wissensverwalter</div>
+                    </div>
+                    <span class="badge badge-standby">Standby</span>
+                </div>
+                <div class="item">
+                    <div>
+                        <div class="item-name">Maloney</div>
+                        <div class="role">TBD</div>
+                    </div>
+                    <span class="badge badge-standby">Standby</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><span class="icon">⏰</span> Cron Jobs</h2>
+                <div class="item">
+                    <div>
+                        <div class="item-name">heartbeat-60min</div>
+                        <div class="schedule">Jede Stunde</div>
+                    </div>
+                    <span class="badge badge-enabled">✓</span>
+                </div>
+                <div class="item">
+                    <div>
+                        <div class="item-name">daily-dashboard-0700</div>
+                        <div class="schedule">07:00 täglich</div>
+                    </div>
+                    <span class="badge badge-enabled">✓</span>
+                </div>
+                <div class="item">
+                    <div>
+                        <div class="item-name">maloney-tagescheck</div>
+                        <div class="schedule">07:00 täglich</div>
+                    </div>
+                    <span class="badge badge-enabled">✓</span>
+                </div>
+                <div class="item">
+                    <div>
+                        <div class="item-name">kobold-tageslauf</div>
+                        <div class="schedule">03:00 täglich</div>
+                    </div>
+                    <span class="badge badge-enabled">✓</span>
+                </div>
+                <div class="item">
+                    <div>
+                        <div class="item-name">dashboard-daily-update</div>
+                        <div class="schedule">06:00 täglich</div>
+                    </div>
+                    <span class="badge badge-enabled">✓</span>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            OpenClaw CEO Dashboard — Automatisch generiert
+        </footer>
+    </div>
+</body>
+</html>
